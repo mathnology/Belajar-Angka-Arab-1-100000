@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Angka Arab Lengkap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
+        
+        .arabic-font {
+            font-family: 'Amiri', serif;
+            direction: rtl;
+        }
+        
+        .number-card {
+            transition: all 0.3s ease;
+            min-height: 180px;
+        }
+        
+        .number-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .correct {
+            background: linear-gradient(135deg, #10b981, #059669);
+            animation: pulse 0.5s ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .category-tab {
+            transition: all 0.3s ease;
+        }
+        
+        .category-tab.active {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .number-card {
+                min-height: 160px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .number-card {
+                min-height: 140px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <div class="container mx-auto px-2 sm:px-4 py-4 sm:py-6 md:py-8">
+        <!-- Header -->
+        <div class="text-center mb-6 md:mb-8">
+            <!-- Mathnology Logo -->
+            <div class="flex justify-center mb-4 md:mb-6">
+                <div class="bg-white rounded-xl md:rounded-2xl shadow-lg p-2 md:p-4 inline-block max-w-full">
+                    <img src="https://raw.githubusercontent.com/mathnology/Penelitian-Relevan/refs/heads/main/gif%20mathnology.gif" 
+                         alt="Mathnology Logo" 
+                         class="w-64 h-32 sm:w-72 sm:h-36 md:w-80 md:h-40 lg:w-96 lg:h-48 object-cover rounded-lg md:rounded-xl max-w-full"
+                         onerror="this.src=''; this.alt='Logo Mathnology'; this.style.display='none';">
+                </div>
+            </div>
+            <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-indigo-800 mb-2 px-2">🔢 Belajar Angka Arab 1-100000</h1>
+        </div>
+
+        <!-- Mode Selection -->
+        <div class="flex justify-center mb-6 md:mb-8 px-2">
+            <div class="bg-white rounded-xl shadow-lg p-1 md:p-2 flex flex-col sm:flex-row w-full max-w-md sm:max-w-none sm:w-auto">
+                <button id="learnMode" class="px-3 sm:px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold transition-all duration-300 bg-indigo-600 text-white text-sm md:text-base mb-1 sm:mb-0 sm:mr-1">
+                    📚 Belajar
+                </button>
+                <button id="rulesMode" class="px-3 sm:px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold transition-all duration-300 text-indigo-600 hover:bg-indigo-50 text-sm md:text-base mb-1 sm:mb-0 sm:mr-1">
+                    📖 Rumus
+                </button>
+                <button id="practiceMode" class="px-3 sm:px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold transition-all duration-300 text-indigo-600 hover:bg-indigo-50 text-sm md:text-base">
+                    ✍️ Latihan
+                </button>
+            </div>
+        </div>
+
+        <!-- Learning Mode -->
+        <div id="learningSection" class="fade-in">
+            <!-- Category Tabs -->
+            <div class="flex flex-wrap justify-center gap-1 md:gap-2 mb-6 md:mb-8 px-2">
+                <button class="category-tab active px-2 sm:px-3 md:px-4 py-2 rounded-lg font-medium bg-white shadow-md text-xs sm:text-sm" data-category="basic">
+                    1-10 (Dasar)
+                </button>
+                <button class="category-tab px-2 sm:px-3 md:px-4 py-2 rounded-lg font-medium bg-white shadow-md text-xs sm:text-sm" data-category="teens">
+                    11-19 (Belasan)
+                </button>
+                <button class="category-tab px-2 sm:px-3 md:px-4 py-2 rounded-lg font-medium bg-white shadow-md text-xs sm:text-sm" data-category="tens">
+                    20-90 (Puluhan)
+                </button>
+                <button class="category-tab px-2 sm:px-3 md:px-4 py-2 rounded-lg font-medium bg-white shadow-md text-xs sm:text-sm" data-category="hundreds">
+                    100-900 (Ratusan)
+                </button>
+                <button class="category-tab px-2 sm:px-3 md:px-4 py-2 rounded-lg font-medium bg-white shadow-md text-xs sm:text-sm" data-category="thousands">
+                    1000+ (Ribuan)
+                </button>
+                <button class="category-tab px-2 sm:px-3 md:px-4 py-2 rounded-lg font-medium bg-white shadow-md text-xs sm:text-sm" data-category="tenthousands">
+                    10000+ (Puluhan Ribu)
+                </button>
+            </div>
+
+            <!-- Numbers Grid -->
+            <div id="numbersGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4 lg:gap-6 max-w-7xl mx-auto px-2">
+                <!-- Number cards will be generated here -->
+            </div>
+            
+            <!-- Info Panel -->
+            <div class="text-center mt-6 md:mt-8 px-2">
+                <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 max-w-2xl mx-auto">
+                    <h3 class="text-lg md:text-xl font-semibold text-gray-800 mb-3 md:mb-4">🔊 Panduan Belajar</h3>
+                    <div class="grid md:grid-cols-2 gap-3 md:gap-4 text-xs sm:text-sm text-gray-600">
+                        <div class="space-y-2">
+                            <p>📝 <span class="text-indigo-600 font-semibold">Angka Arab</span> - Simbol angka</p>
+                            <p>🔤 <span class="text-purple-600 font-semibold">Tulisan Arab</span> - Cara menulis</p>
+                            <p>🔢 <span class="text-gray-800 font-semibold">Angka</span> - Nilai numerik</p>
+                        </div>
+                        <div class="space-y-2">
+                            <p>🗣️ <span class="italic">Pelafalan</span> - Cara membaca</p>
+                            <p>💡 Klik kartu untuk mendengar pelafalan</p>
+                            <p>✍️ Gunakan mode latihan untuk berlatih</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practice Mode -->
+        <div id="practiceSection" class="hidden px-2">
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-white rounded-xl shadow-lg p-4 md:p-8 text-center">
+                    <h3 class="text-xl md:text-2xl font-semibold text-gray-800 mb-4 md:mb-6">✍️ Mode Latihan</h3>
+                    <div class="space-y-4 md:space-y-6">
+                        <div>
+                            <label class="block text-base md:text-lg font-medium text-gray-700 mb-2 md:mb-3">Masukkan angka (1-99999):</label>
+                            <input type="number" id="practiceInput" min="1" max="99999" class="w-full px-3 md:px-4 py-2 md:py-3 text-lg md:text-xl text-center border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Contoh: 12345">
+                        </div>
+                        <button id="convertButton" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 md:px-8 py-2 md:py-3 rounded-lg font-semibold transition-colors text-sm md:text-base">
+                            Konversi ke Arab
+                        </button>
+                        <div id="practiceResult" class="hidden bg-gray-50 rounded-lg p-4 md:p-6">
+                            <div class="space-y-3 md:space-y-4">
+                                <div>
+                                    <span class="text-xs md:text-sm text-gray-600">Angka Arab:</span>
+                                    <div class="text-2xl md:text-4xl arabic-font text-indigo-600" id="resultArabic"></div>
+                                </div>
+                                <div>
+                                    <span class="text-xs md:text-sm text-gray-600">Tulisan Arab:</span>
+                                    <div class="text-lg md:text-2xl arabic-font text-purple-600" id="resultWritten"></div>
+                                </div>
+                                <div>
+                                    <span class="text-xs md:text-sm text-gray-600">Pelafalan:</span>
+                                    <div class="text-sm md:text-lg italic text-gray-800" id="resultPronunciation"></div>
+                                </div>
+                                <button id="playPracticeSound" class="bg-indigo-100 hover:bg-indigo-200 text-indigo-700 px-3 md:px-4 py-2 rounded-lg transition-colors text-sm md:text-base">
+                                    🔊 Dengar Pelafalan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rules Mode -->
+        <div id="rulesSection" class="hidden px-2">
+            <div class="max-w-4xl mx-auto space-y-6 md:space-y-8">
+                <!-- 2 Digit Numbers -->
+                <div class="bg-white rounded-xl shadow-lg p-4 md:p-8">
+                    <h3 class="text-lg md:text-2xl font-bold text-indigo-800 mb-4 md:mb-6 text-center">📝 Rumus Angka 2 Digit (21-99)</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+                        <div class="space-y-4">
+                            <h4 class="text-base md:text-lg font-semibold text-gray-800">🔢 Pola Umum:</h4>
+                            <div class="bg-indigo-50 p-3 md:p-4 rounded-lg">
+                                <p class="text-center text-sm md:text-lg font-medium">
+                                    <span class="text-indigo-600">Satuan</span> + 
+                                    <span class="text-purple-600">و</span> + 
+                                    <span class="text-green-600">Puluhan</span>
+                                </p>
+                                <p class="text-center text-xs md:text-sm text-gray-600 mt-2">
+                                    (Units) + (wa) + (Tens)
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <h4 class="text-base md:text-lg font-semibold text-gray-800">📋 Contoh:</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center bg-gray-50 p-2 md:p-3 rounded text-sm md:text-base">
+                                    <span class="font-medium">25</span>
+                                    <span class="arabic-font text-base md:text-lg text-purple-600">خَمْسَةٌ وَعِشْرُونَ</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-gray-50 p-2 md:p-3 rounded text-sm md:text-base">
+                                    <span class="font-medium">37</span>
+                                    <span class="arabic-font text-base md:text-lg text-purple-600">سَبْعَةٌ وَثَلَاثُونَ</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-gray-50 p-2 md:p-3 rounded text-sm md:text-base">
+                                    <span class="font-medium">84</span>
+                                    <span class="arabic-font text-base md:text-lg text-purple-600">أَرْبَعَةٌ وَثَمَانُونَ</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 md:mt-6 p-3 md:p-4 bg-yellow-50 rounded-lg">
+                        <p class="text-xs md:text-sm text-yellow-800">
+                            <strong>💡 Catatan:</strong> Kata "و" (wa) berarti "dan" yang menghubungkan satuan dengan puluhan.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 3 Digit Numbers -->
+                <div class="bg-white rounded-xl shadow-lg p-4 md:p-8">
+                    <h3 class="text-lg md:text-2xl font-bold text-indigo-800 mb-4 md:mb-6 text-center">📝 Rumus Angka 3 Digit (101-999)</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+                        <div class="space-y-4">
+                            <h4 class="text-base md:text-lg font-semibold text-gray-800">🔢 Pola Umum:</h4>
+                            <div class="bg-indigo-50 p-3 md:p-4 rounded-lg space-y-2">
+                                <p class="text-center text-sm md:text-lg font-medium">
+                                    <span class="text-red-600">Ratusan</span> + 
+                                    <span class="text-indigo-600">Satuan</span> + 
+                                    <span class="text-purple-600">و</span> + 
+                                    <span class="text-green-600">Puluhan</span>
+                                </p>
+                                <p class="text-center text-xs md:text-sm text-gray-600">
+                                    (Hundreds) + (Units) + (wa) + (Tens)
+                                </p>
+                            </div>
+                            
+                            <div class="bg-orange-50 p-3 md:p-4 rounded-lg">
+                                <h5 class="font-semibold text-orange-800 mb-2 text-sm md:text-base">Khusus untuk ratusan:</h5>
+                                <ul class="text-xs md:text-sm text-orange-700 space-y-1">
+                                    <li>• 100 = مائة (mi'ah)</li>
+                                    <li>• 200 = مائتان (mi'atan)</li>
+                                    <li>• 300-900 = [angka] + مائة</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <h4 class="text-base md:text-lg font-semibold text-gray-800">📋 Contoh:</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center bg-gray-50 p-2 md:p-3 rounded text-sm md:text-base">
+                                    <span class="font-medium">125</span>
+                                    <span class="arabic-font text-base md:text-lg text-purple-600">مِائَةٌ خَمْسَةٌ وَعِشْرُونَ</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-gray-50 p-2 md:p-3 rounded text-sm md:text-base">
+                                    <span class="font-medium">237</span>
+                                    <span class="arabic-font text-base md:text-lg text-purple-600">مِائَتَانِ سَبْعَةٌ وَثَلَاثُونَ</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-gray-50 p-2 md:p-3 rounded text-sm md:text-base">
+                                    <span class="font-medium">584</span>
+                                    <span class="arabic-font text-base md:text-lg text-purple-600">خَمْسُمِائَةٍ أَرْبَعَةٌ وَثَمَانُونَ</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 Digit Numbers -->
+                <div class="bg-white rounded-xl shadow-lg p-4 md:p-8">
+                    <h3 class="text-lg md:text-2xl font-bold text-indigo-800 mb-4 md:mb-6 text-center">📝 Rumus Angka 4 Digit (1001-9999)</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+                        <div class="space-y-4">
+                            <h4 class="text-base md:text-lg font-semibold text-gray-800">🔢 Pola Umum:</h4>
+                            <div class="bg-indigo-50 p-3 md:p-4 rounded-lg space-y-2">
+                                <p class="text-center text-sm md:text-lg font-medium">
+                                    <span class="text-pink-600">Ribuan</span> + 
+                                    <span class="text-red-600">Ratusan</span> + 
+                                    <span class="text-indigo-600">Satuan</span> + 
+                                    <span class="text-purple-600">و</span> + 
+                                    <span class="text-green-600">Puluhan</span>
+                                </p>
+                                <p class="text-center text-xs md:text-sm text-gray-600">
+                                    (Thousands) + (Hundreds) + (Units) + (wa) + (Tens)
+                                </p>
+                            </div>
+                            
+                            <div class="bg-pink-50 p-3 md:p-4 rounded-lg">
+                                <h5 class="font-semibold text-pink-800 mb-2 text-sm md:text-base">Khusus untuk ribuan:</h5>
+                                <ul class="text-xs md:text-sm text-pink-700 space-y-1">
+                                    <li>• 1000 = ألف (alf)</li>
+                                    <li>• 2000 = ألفان (alfain)</li>
+                                    <li>• 3000-9000 = [angka] + آلاف (alaf)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <h4 class="text-base md:text-lg font-semibold text-gray-800">📋 Contoh:</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center bg-gray-50 p-2 md:p-3 rounded text-sm md:text-base">
+                                    <span class="font-medium">1234</span>
+                                    <span class="arabic-font text-base md:text-lg text-purple-600">أَلْفٌ مِائَتَانِ أَرْبَعَةٌ وَثَلَاثُونَ</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-gray-50 p-2 md:p-3 rounded text-sm md:text-base">
+                                    <span class="font-medium">2567</span>
+                                    <span class="arabic-font text-base md:text-lg text-purple-600">أَلْفَانِ خَمْسُمِائَةٍ سَبْعَةٌ وَسِتُّونَ</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-gray-50 p-2 md:p-3 rounded text-sm md:text-base">
+                                    <span class="font-medium">3890</span>
+                                    <span class="arabic-font text-base md:text-lg text-purple-600">ثَلَاثَةُ آلَافٍ ثَمَانُمِائَةٍ تِسْعُونَ</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5 Digit Numbers -->
+                <div class="bg-white rounded-xl shadow-lg p-4 md:p-8">
+                    <h3 class="text-lg md:text-2xl font-bold text-indigo-800 mb-4 md:mb-6 text-center">📝 Rumus Angka 5 Digit (10001-99999)</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+                        <div class="space-y-4">
+                            <h4 class="text-base md:text-lg font-semibold text-gray-800">🔢 Pola Umum:</h4>
+                            <div class="bg-indigo-50 p-3 md:p-4 rounded-lg space-y-2">
+                                <p class="text-center text-sm md:text-lg font-medium">
+                                    <span class="text-cyan-600">Puluhan Ribu</span> + 
+                                    <span class="text-pink-600">Ribuan</span> + 
+                                    <span class="text-red-600">Ratusan</span> + 
+                                    <span class="text-indigo-600">Satuan</span> + 
+                                    <span class="text-purple-600">و</span> + 
+                                    <span class="text-green-600">Puluhan</span>
+                                </p>
+                                <p class="text-center text-xs md:text-sm text-gray-600">
+                                    (Ten Thousands) + (Thousands) + (Hundreds) + (Units) + (wa) + (Tens)
+                                </p>
+                            </div>
+                            
+                            <div class="bg-cyan-50 p-3 md:p-4 rounded-lg">
+                                <h5 class="font-semibold text-cyan-800 mb-2 text-sm md:text-base">Khusus untuk puluhan ribu:</h5>
+                                <ul class="text-xs md:text-sm text-cyan-700 space-y-1">
+                                    <li>• 10000 = عشرة آلاف (asyaratu alaf)</li>
+                                    <li>• 20000 = عشرون ألفًا (isyrun alf)</li>
+                                    <li>• 30000-90000 = [puluhan] + ألفًا (alf)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <h4 class="text-base md:text-lg font-semibold text-gray-800">📋 Contoh:</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center bg-gray-50 p-2 md:p-3 rounded text-sm md:text-base">
+                                    <span class="font-medium">12345</span>
+                                    <span class="arabic-font text-base md:text-lg text-purple-600">اِثْنَا عَشَرَ أَلْفًا ثَلَاثُمِائَةٍ خَمْسَةٌ وَأَرْبَعُونَ</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-gray-50 p-2 md:p-3 rounded text-sm md:text-base">
+                                    <span class="font-medium">25678</span>
+                                    <span class="arabic-font text-base md:text-lg text-purple-600">خَمْسَةٌ وَعِشْرُونَ أَلْفًا سِتُّمِائَةٍ ثَمَانِيَةٌ وَسَبْعُونَ</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-gray-50 p-2 md:p-3 rounded text-sm md:text-base">
+                                    <span class="font-medium">50000</span>
+                                    <span class="arabic-font text-base md:text-lg text-purple-600">خَمْسُونَ أَلْفًا</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 md:mt-6 p-3 md:p-4 bg-cyan-50 rounded-lg">
+                        <p class="text-xs md:text-sm text-cyan-800">
+                            <strong>💡 Catatan:</strong> Untuk angka puluhan ribu, kata "ألفًا" (alfan) digunakan setelah puluhan, berbeda dengan "آلاف" (alaf) untuk ribuan.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Quick Reference -->
+                <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg p-4 md:p-8 text-white">
+                    <h3 class="text-lg md:text-2xl font-bold mb-4 md:mb-6 text-center">🚀 Panduan Cepat</h3>
+                    
+                    <div class="grid md:grid-cols-3 gap-4 md:gap-6">
+                        <div class="bg-white bg-opacity-20 rounded-lg p-3 md:p-4">
+                            <h4 class="font-semibold mb-2 md:mb-3 text-sm md:text-base">🔤 Kata Penghubung</h4>
+                            <ul class="space-y-1 md:space-y-2 text-xs md:text-sm">
+                                <li>• <span class="arabic-font">و</span> (wa) = "dan"</li>
+                                <li>• Menghubungkan satuan-puluhan</li>
+                                <li>• Selalu di tengah angka 2 digit</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white bg-opacity-20 rounded-lg p-3 md:p-4">
+                            <h4 class="font-semibold mb-2 md:mb-3 text-sm md:text-base">📊 Urutan Penulisan</h4>
+                            <ul class="space-y-1 md:space-y-2 text-xs md:text-sm">
+                                <li>• Ribuan → Ratusan</li>
+                                <li>• Satuan → و → Puluhan</li>
+                                <li>• Baca dari kanan ke kiri</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white bg-opacity-20 rounded-lg p-3 md:p-4">
+                            <h4 class="font-semibold mb-2 md:mb-3 text-sm md:text-base">⚡ Tips Cepat</h4>
+                            <ul class="space-y-1 md:space-y-2 text-xs md:text-sm">
+                                <li>• Hafalkan angka dasar 1-10</li>
+                                <li>• Pelajari puluhan 20-90</li>
+                                <li>• Gabungkan dengan rumus</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 md:py-6 mt-8 md:mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-base md:text-lg font-semibold">© 2025 Mathnology</p>
+        </div>
+    </footer>
+
+    <script>
+        // Comprehensive Arabic numbers data
+        const arabicNumbersData = {
+            basic: [
+                { arabic: '١', number: 1, pronunciation: 'wahid', written: 'وَاحِدٌ' },
+                { arabic: '٢', number: 2, pronunciation: 'itsnain', written: 'اِثْنَانِ' },
+                { arabic: '٣', number: 3, pronunciation: 'tsalatsah', written: 'ثَلَاثَةٌ' },
+                { arabic: '٤', number: 4, pronunciation: 'arba\'ah', written: 'أَرْبَعَةٌ' },
+                { arabic: '٥', number: 5, pronunciation: 'khamsah', written: 'خَمْسَةٌ' },
+                { arabic: '٦', number: 6, pronunciation: 'sittah', written: 'سِتَّةٌ' },
+                { arabic: '٧', number: 7, pronunciation: 'sab\'ah', written: 'سَبْعَةٌ' },
+                { arabic: '٨', number: 8, pronunciation: 'tsamaniyah', written: 'ثَمَانِيَةٌ' },
+                { arabic: '٩', number: 9, pronunciation: 'tis\'ah', written: 'تِسْعَةٌ' },
+                { arabic: '١٠', number: 10, pronunciation: 'asyarah', written: 'عَشَرَةٌ' }
+            ],
+            teens: [
+                { arabic: '١١', number: 11, pronunciation: 'ahada asyar', written: 'أَحَدَ عَشَرَ' },
+                { arabic: '١٢', number: 12, pronunciation: 'itsna asyar', written: 'اِثْنَا عَشَرَ' },
+                { arabic: '١٣', number: 13, pronunciation: 'tsalatsata asyar', written: 'ثَلَاثَةَ عَشَرَ' },
+                { arabic: '١٤', number: 14, pronunciation: 'arba\'ata asyar', written: 'أَرْبَعَةَ عَشَرَ' },
+                { arabic: '١٥', number: 15, pronunciation: 'khamsata asyar', written: 'خَمْسَةَ عَشَرَ' },
+                { arabic: '١٦', number: 16, pronunciation: 'sittata asyar', written: 'سِتَّةَ عَشَرَ' },
+                { arabic: '١٧', number: 17, pronunciation: 'sab\'ata asyar', written: 'سَبْعَةَ عَشَرَ' },
+                { arabic: '١٨', number: 18, pronunciation: 'tsamaniyata asyar', written: 'ثَمَانِيَةَ عَشَرَ' },
+                { arabic: '١٩', number: 19, pronunciation: 'tis\'ata asyar', written: 'تِسْعَةَ عَشَرَ' }
+            ],
+            tens: [
+                { arabic: '٢٠', number: 20, pronunciation: 'isyrun', written: 'عِشْرُونَ' },
+                { arabic: '٣٠', number: 30, pronunciation: 'tsalatsun', written: 'ثَلَاثُونَ' },
+                { arabic: '٤٠', number: 40, pronunciation: 'arba\'un', written: 'أَرْبَعُونَ' },
+                { arabic: '٥٠', number: 50, pronunciation: 'khamsun', written: 'خَمْسُونَ' },
+                { arabic: '٦٠', number: 60, pronunciation: 'sittun', written: 'سِتُّونَ' },
+                { arabic: '٧٠', number: 70, pronunciation: 'sab\'un', written: 'سَبْعُونَ' },
+                { arabic: '٨٠', number: 80, pronunciation: 'tsamanun', written: 'ثَمَانُونَ' },
+                { arabic: '٩٠', number: 90, pronunciation: 'tis\'un', written: 'تِسْعُونَ' }
+            ],
+            hundreds: [
+                { arabic: '١٠٠', number: 100, pronunciation: 'mi\'ah', written: 'مِائَةٌ' },
+                { arabic: '٢٠٠', number: 200, pronunciation: 'mi\'atan', written: 'مِائَتَانِ' },
+                { arabic: '٣٠٠', number: 300, pronunciation: 'tsalatsu mi\'ah', written: 'ثَلَاثُمِائَةٍ' },
+                { arabic: '٤٠٠', number: 400, pronunciation: 'arba\'u mi\'ah', written: 'أَرْبَعُمِائَةٍ' },
+                { arabic: '٥٠٠', number: 500, pronunciation: 'khamsu mi\'ah', written: 'خَمْسُمِائَةٍ' },
+                { arabic: '٦٠٠', number: 600, pronunciation: 'sittu mi\'ah', written: 'سِتُّمِائَةٍ' },
+                { arabic: '٧٠٠', number: 700, pronunciation: 'sab\'u mi\'ah', written: 'سَبْعُمِائَةٍ' },
+                { arabic: '٨٠٠', number: 800, pronunciation: 'tsamanu mi\'ah', written: 'ثَمَانُمِائَةٍ' },
+                { arabic: '٩٠٠', number: 900, pronunciation: 'tis\'u mi\'ah', written: 'تِسْعُمِائَةٍ' }
+            ],
+            thousands: [
+                { arabic: '١٠٠٠', number: 1000, pronunciation: 'alf', written: 'أَلْفٌ' },
+                { arabic: '٢٠٠٠', number: 2000, pronunciation: 'alfain', written: 'أَلْفَانِ' },
+                { arabic: '٣٠٠٠', number: 3000, pronunciation: 'tsalatsatu alaf', written: 'ثَلَاثَةُ آلَافٍ' },
+                { arabic: '٤٠٠٠', number: 4000, pronunciation: 'arba\'atu alaf', written: 'أَرْبَعَةُ آلَافٍ' },
+                { arabic: '٥٠٠٠', number: 5000, pronunciation: 'khamsatu alaf', written: 'خَمْسَةُ آلَافٍ' },
+                { arabic: '٦٠٠٠', number: 6000, pronunciation: 'sittatu alaf', written: 'سِتَّةُ آلَافٍ' },
+                { arabic: '٧٠٠٠', number: 7000, pronunciation: 'sab\'atu alaf', written: 'سَبْعَةُ آلَافٍ' },
+                { arabic: '٨٠٠٠', number: 8000, pronunciation: 'tsamaniyatu alaf', written: 'ثَمَانِيَةُ آلَافٍ' },
+                { arabic: '٩٠٠٠', number: 9000, pronunciation: 'tis\'atu alaf', written: 'تِسْعَةُ آلَافٍ' }
+            ],
+            tenthousands: [
+                { arabic: '١٠٠٠٠', number: 10000, pronunciation: 'asyaratu alaf', written: 'عَشَرَةُ آلَافٍ' },
+                { arabic: '٢٠٠٠٠', number: 20000, pronunciation: 'isyrun alf', written: 'عِشْرُونَ أَلْفًا' },
+                { arabic: '٣٠٠٠٠', number: 30000, pronunciation: 'tsalatsun alf', written: 'ثَلَاثُونَ أَلْفًا' },
+                { arabic: '٤٠٠٠٠', number: 40000, pronunciation: 'arba\'un alf', written: 'أَرْبَعُونَ أَلْفًا' },
+                { arabic: '٥٠٠٠٠', number: 50000, pronunciation: 'khamsun alf', written: 'خَمْسُونَ أَلْفًا' },
+                { arabic: '٦٠٠٠٠', number: 60000, pronunciation: 'sittun alf', written: 'سِتُّونَ أَلْفًا' },
+                { arabic: '٧٠٠٠٠', number: 70000, pronunciation: 'sab\'un alf', written: 'سَبْعُونَ أَلْفًا' },
+                { arabic: '٨٠٠٠٠', number: 80000, pronunciation: 'tsamanun alf', written: 'ثَمَانُونَ أَلْفًا' },
+                { arabic: '٩٠٠٠٠', number: 90000, pronunciation: 'tis\'un alf', written: 'تِسْعُونَ أَلْفًا' }
+            ]
+        };
+
+        // Current state
+        let currentCategory = 'basic';
+        let currentMode = 'learn';
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            setupModeToggle();
+            setupCategoryTabs();
+            setupPracticeMode();
+            displayNumbers(currentCategory);
+            initializeVoices(); // Initialize Arabic voices
+        });
+
+        // Setup mode toggle
+        function setupModeToggle() {
+            const modes = ['learnMode', 'rulesMode', 'practiceMode'];
+            const sections = ['learningSection', 'rulesSection', 'practiceSection'];
+
+            modes.forEach((modeId, index) => {
+                document.getElementById(modeId).addEventListener('click', () => {
+                    // Update button styles
+                    modes.forEach(id => {
+                        const btn = document.getElementById(id);
+                        btn.className = 'px-3 sm:px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold transition-all duration-300 text-indigo-600 hover:bg-indigo-50 text-sm md:text-base mb-1 sm:mb-0 sm:mr-1';
+                    });
+                    document.getElementById(modeId).className = 'px-3 sm:px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold transition-all duration-300 bg-indigo-600 text-white text-sm md:text-base mb-1 sm:mb-0 sm:mr-1';
+
+                    // Show/hide sections
+                    sections.forEach((sectionId, sIndex) => {
+                        const section = document.getElementById(sectionId);
+                        if (sIndex === index) {
+                            section.classList.remove('hidden');
+                            section.classList.add('fade-in');
+                        } else {
+                            section.classList.add('hidden');
+                        }
+                    });
+
+                    currentMode = ['learn', 'rules', 'practice'][index];
+                });
+            });
+        }
+
+        // Setup category tabs
+        function setupCategoryTabs() {
+            const tabs = document.querySelectorAll('.category-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    // Display numbers for selected category
+                    const category = tab.dataset.category;
+                    currentCategory = category;
+                    displayNumbers(category);
+                });
+            });
+        }
+
+        // Display numbers based on category
+        function displayNumbers(category) {
+            const container = document.getElementById('numbersGrid');
+            container.innerHTML = '';
+
+            const numbers = arabicNumbersData[category] || [];
+
+            numbers.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'number-card bg-white rounded-xl shadow-lg p-3 md:p-6 text-center cursor-pointer hover:shadow-xl';
+                card.innerHTML = `
+                    <div class="text-2xl md:text-4xl arabic-font text-indigo-600 mb-2 md:mb-3">${item.arabic}</div>
+                    <div class="text-base md:text-lg arabic-font text-purple-600 mb-1 md:mb-2">${item.written}</div>
+                    <div class="text-lg md:text-2xl font-bold text-gray-800 mb-1 md:mb-2">${item.number}</div>
+                    <div class="text-xs md:text-sm text-gray-600 italic">${item.pronunciation}</div>
+                `;
+                
+                card.addEventListener('click', () => {
+                    playPronunciation(item.pronunciation);
+                    card.classList.add('correct');
+                    setTimeout(() => card.classList.remove('correct'), 500);
+                });
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Setup practice mode
+        function setupPracticeMode() {
+            const input = document.getElementById('practiceInput');
+            const convertBtn = document.getElementById('convertButton');
+            
+            convertBtn.addEventListener('click', () => {
+                const number = parseInt(input.value);
+                if (number >= 1 && number <= 99999) {
+                    convertNumberToArabic(number);
+                } else {
+                    alert('Masukkan angka antara 1-99999!');
+                }
+            });
+
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    convertBtn.click();
+                }
+            });
+        }
+
+        // Convert number to Arabic
+        function convertNumberToArabic(number) {
+            // Find exact match first
+            const allNumbers = Object.values(arabicNumbersData).flat();
+            const exactMatch = allNumbers.find(item => item.number === number);
+            
+            if (exactMatch) {
+                displayPracticeResult(exactMatch);
+                return;
+            }
+
+            // Convert to Arabic digits
+            const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+            const arabicNumber = number.toString().split('').map(digit => arabicDigits[parseInt(digit)]).join('');
+            
+            // Generate written form and pronunciation for compound numbers
+            const writtenForm = generateArabicWritten(number);
+            const pronunciation = generateArabicPronunciation(number);
+            
+            const result = {
+                arabic: arabicNumber,
+                number: number,
+                written: writtenForm,
+                pronunciation: pronunciation
+            };
+            
+            displayPracticeResult(result);
+        }
+
+        // Generate Arabic written form for compound numbers
+        function generateArabicWritten(number) {
+            // Basic numbers mapping
+            const ones = ['', 'وَاحِدٌ', 'اِثْنَانِ', 'ثَلَاثَةٌ', 'أَرْبَعَةٌ', 'خَمْسَةٌ', 'سِتَّةٌ', 'سَبْعَةٌ', 'ثَمَانِيَةٌ', 'تِسْعَةٌ'];
+            const teens = ['عَشَرَةٌ', 'أَحَدَ عَشَرَ', 'اِثْنَا عَشَرَ', 'ثَلَاثَةَ عَشَرَ', 'أَرْبَعَةَ عَشَرَ', 'خَمْسَةَ عَشَرَ', 'سِتَّةَ عَشَرَ', 'سَبْعَةَ عَشَرَ', 'ثَمَانِيَةَ عَشَرَ', 'تِسْعَةَ عَشَرَ'];
+            const tens = ['', '', 'عِشْرُونَ', 'ثَلَاثُونَ', 'أَرْبَعُونَ', 'خَمْسُونَ', 'سِتُّونَ', 'سَبْعُونَ', 'ثَمَانُونَ', 'تِسْعُونَ'];
+            const hundreds = ['', 'مِائَةٌ', 'مِائَتَانِ', 'ثَلَاثُمِائَةٍ', 'أَرْبَعُمِائَةٍ', 'خَمْسُمِائَةٍ', 'سِتُّمِائَةٍ', 'سَبْعُمِائَةٍ', 'ثَمَانُمِائَةٍ', 'تِسْعُمِائَةٍ'];
+            const thousands = ['', 'أَلْفٌ', 'أَلْفَانِ', 'ثَلَاثَةُ آلَافٍ', 'أَرْبَعَةُ آلَافٍ', 'خَمْسَةُ آلَافٍ', 'سِتَّةُ آلَافٍ', 'سَبْعَةُ آلَافٍ', 'ثَمَانِيَةُ آلَافٍ', 'تِسْعَةُ آلَافٍ'];
+
+            if (number < 10) {
+                return ones[number];
+            } else if (number >= 10 && number < 20) {
+                return teens[number - 10];
+            } else if (number >= 20 && number < 100) {
+                const tensDigit = Math.floor(number / 10);
+                const onesDigit = number % 10;
+                if (onesDigit === 0) {
+                    return tens[tensDigit];
+                } else {
+                    return ones[onesDigit] + ' و' + tens[tensDigit];
+                }
+            } else if (number >= 100 && number < 1000) {
+                const hundredsDigit = Math.floor(number / 100);
+                const remainder = number % 100;
+                let result = hundreds[hundredsDigit];
+                if (remainder > 0) {
+                    result += ' ' + generateArabicWritten(remainder);
+                }
+                return result;
+            } else if (number >= 1000 && number < 10000) {
+                const thousandsDigit = Math.floor(number / 1000);
+                const remainder = number % 1000;
+                let result = thousands[thousandsDigit];
+                if (remainder > 0) {
+                    result += ' ' + generateArabicWritten(remainder);
+                }
+                return result;
+            } else if (number >= 10000 && number < 100000) {
+                const tenThousandsDigit = Math.floor(number / 10000);
+                const remainder = number % 10000;
+                
+                let result = '';
+                if (tenThousandsDigit === 1) {
+                    if (remainder >= 1000 && remainder < 2000) {
+                        // Special case: 11000-19000
+                        const thousandsRemainder = Math.floor(remainder / 1000);
+                        const finalRemainder = remainder % 1000;
+                        const teensThousands = ['', 'أَحَدَ عَشَرَ أَلْفًا', 'اِثْنَا عَشَرَ أَلْفًا', 'ثَلَاثَةَ عَشَرَ أَلْفًا', 'أَرْبَعَةَ عَشَرَ أَلْفًا', 'خَمْسَةَ عَشَرَ أَلْفًا', 'سِتَّةَ عَشَرَ أَلْفًا', 'سَبْعَةَ عَشَرَ أَلْفًا', 'ثَمَانِيَةَ عَشَرَ أَلْفًا', 'تِسْعَةَ عَشَرَ أَلْفًا'];
+                        result = teensThousands[thousandsRemainder];
+                        if (finalRemainder > 0) {
+                            result += ' ' + generateArabicWritten(finalRemainder);
+                        }
+                    } else {
+                        result = 'عَشَرَةُ آلَافٍ';
+                        if (remainder > 0) {
+                            result += ' ' + generateArabicWritten(remainder);
+                        }
+                    }
+                } else {
+                    // 20000-90000
+                    const tensNames = ['', '', 'عِشْرُونَ', 'ثَلَاثُونَ', 'أَرْبَعُونَ', 'خَمْسُونَ', 'سِتُّونَ', 'سَبْعُونَ', 'ثَمَانُونَ', 'تِسْعُونَ'];
+                    result = tensNames[tenThousandsDigit] + ' أَلْفًا';
+                    if (remainder > 0) {
+                        result += ' ' + generateArabicWritten(remainder);
+                    }
+                }
+                return result;
+            }
+            
+            return 'رقم كبير'; // Large number
+        }
+
+        // Generate Arabic pronunciation for compound numbers
+        function generateArabicPronunciation(number) {
+            // Basic pronunciation mapping
+            const onesPron = ['', 'wahid', 'itsnain', 'tsalatsah', 'arba\'ah', 'khamsah', 'sittah', 'sab\'ah', 'tsamaniyah', 'tis\'ah'];
+            const teensPron = ['asyarah', 'ahada asyar', 'itsna asyar', 'tsalatsata asyar', 'arba\'ata asyar', 'khamsata asyar', 'sittata asyar', 'sab\'ata asyar', 'tsamaniyata asyar', 'tis\'ata asyar'];
+            const tensPron = ['', '', 'isyrun', 'tsalatsun', 'arba\'un', 'khamsun', 'sittun', 'sab\'un', 'tsamanun', 'tis\'un'];
+            const hundredsPron = ['', 'mi\'ah', 'mi\'atan', 'tsalatsu mi\'ah', 'arba\'u mi\'ah', 'khamsu mi\'ah', 'sittu mi\'ah', 'sab\'u mi\'ah', 'tsamanu mi\'ah', 'tis\'u mi\'ah'];
+            const thousandsPron = ['', 'alf', 'alfain', 'tsalatsatu alaf', 'arba\'atu alaf', 'khamsatu alaf', 'sittatu alaf', 'sab\'atu alaf', 'tsamaniyatu alaf', 'tis\'atu alaf'];
+
+            if (number < 10) {
+                return onesPron[number];
+            } else if (number >= 10 && number < 20) {
+                return teensPron[number - 10];
+            } else if (number >= 20 && number < 100) {
+                const tensDigit = Math.floor(number / 10);
+                const onesDigit = number % 10;
+                if (onesDigit === 0) {
+                    return tensPron[tensDigit];
+                } else {
+                    return onesPron[onesDigit] + ' wa ' + tensPron[tensDigit];
+                }
+            } else if (number >= 100 && number < 1000) {
+                const hundredsDigit = Math.floor(number / 100);
+                const remainder = number % 100;
+                let result = hundredsPron[hundredsDigit];
+                if (remainder > 0) {
+                    result += ' ' + generateArabicPronunciation(remainder);
+                }
+                return result;
+            } else if (number >= 1000 && number < 10000) {
+                const thousandsDigit = Math.floor(number / 1000);
+                const remainder = number % 1000;
+                let result = thousandsPron[thousandsDigit];
+                if (remainder > 0) {
+                    result += ' ' + generateArabicPronunciation(remainder);
+                }
+                return result;
+            } else if (number >= 10000 && number < 100000) {
+                const tenThousandsDigit = Math.floor(number / 10000);
+                const remainder = number % 10000;
+                
+                let result = '';
+                if (tenThousandsDigit === 1) {
+                    if (remainder >= 1000 && remainder < 2000) {
+                        // Special case: 11000-19000
+                        const thousandsRemainder = Math.floor(remainder / 1000);
+                        const finalRemainder = remainder % 1000;
+                        const teensThousandsPron = ['', 'ahada asyar alf', 'itsna asyar alf', 'tsalatsata asyar alf', 'arba\'ata asyar alf', 'khamsata asyar alf', 'sittata asyar alf', 'sab\'ata asyar alf', 'tsamaniyata asyar alf', 'tis\'ata asyar alf'];
+                        result = teensThousandsPron[thousandsRemainder];
+                        if (finalRemainder > 0) {
+                            result += ' ' + generateArabicPronunciation(finalRemainder);
+                        }
+                    } else {
+                        result = 'asyaratu alaf';
+                        if (remainder > 0) {
+                            result += ' ' + generateArabicPronunciation(remainder);
+                        }
+                    }
+                } else {
+                    // 20000-90000
+                    const tensPronNames = ['', '', 'isyrun', 'tsalatsun', 'arba\'un', 'khamsun', 'sittun', 'sab\'un', 'tsamanun', 'tis\'un'];
+                    result = tensPronNames[tenThousandsDigit] + ' alf';
+                    if (remainder > 0) {
+                        result += ' ' + generateArabicPronunciation(remainder);
+                    }
+                }
+                return result;
+            }
+            
+            return 'raqam kabir'; // Large number
+        }
+
+        // Display practice result
+        function displayPracticeResult(result) {
+            document.getElementById('resultArabic').textContent = result.arabic;
+            document.getElementById('resultWritten').textContent = result.written;
+            document.getElementById('resultPronunciation').textContent = result.pronunciation;
+            document.getElementById('practiceResult').classList.remove('hidden');
+            
+            document.getElementById('playPracticeSound').onclick = () => {
+                playPronunciation(result.pronunciation);
+            };
+        }
+
+        // Play pronunciation with authentic Arabic voice
+        function playPronunciation(pronunciation) {
+            if ('speechSynthesis' in window) {
+                // Stop any ongoing speech
+                speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(pronunciation);
+                
+                // Get available voices
+                const voices = speechSynthesis.getVoices();
+                
+                // Find the best Arabic voice (prioritize native Arabic voices)
+                const arabicVoices = voices.filter(voice => 
+                    voice.lang.includes('ar') || 
+                    voice.name.toLowerCase().includes('arabic') ||
+                    voice.name.toLowerCase().includes('arab')
+                );
+                
+                // Prioritize specific Arabic voices
+                let selectedVoice = null;
+                
+                // Look for Saudi Arabic first (most standard)
+                selectedVoice = arabicVoices.find(voice => 
+                    voice.lang === 'ar-SA' || voice.lang === 'ar_SA'
+                );
+                
+                // If not found, look for any Arabic voice
+                if (!selectedVoice) {
+                    selectedVoice = arabicVoices.find(voice => 
+                        voice.lang.startsWith('ar')
+                    );
+                }
+                
+                // If still not found, look for voices with Arabic in name
+                if (!selectedVoice) {
+                    selectedVoice = voices.find(voice => 
+                        voice.name.toLowerCase().includes('arabic') ||
+                        voice.name.toLowerCase().includes('arab')
+                    );
+                }
+                
+                if (selectedVoice) {
+                    utterance.voice = selectedVoice;
+                    utterance.lang = selectedVoice.lang;
+                } else {
+                    // Fallback to Arabic language code
+                    utterance.lang = 'ar-SA';
+                }
+                
+                // Optimize speech settings for Arabic
+                utterance.rate = 0.6; // Slower for clarity
+                utterance.pitch = 1.0; // Normal pitch
+                utterance.volume = 1.0; // Full volume
+                
+                // Add error handling
+                utterance.onerror = function(event) {
+                    console.log('Speech error:', event.error);
+                    // Fallback to showing text
+                    showPronunciationText(pronunciation);
+                };
+                
+                utterance.onend = function() {
+                    console.log('Speech finished');
+                };
+                
+                speechSynthesis.speak(utterance);
+                
+            } else {
+                // Fallback for browsers without speech synthesis
+                showPronunciationText(pronunciation);
+            }
+        }
+        
+        // Show pronunciation text as fallback (silently log instead of showing popup)
+        function showPronunciationText(pronunciation) {
+            console.log('Pronunciation:', pronunciation);
+            // No popup shown - just log for debugging
+        }
+        
+        // Initialize voices when they become available
+        function initializeVoices() {
+            if ('speechSynthesis' in window) {
+                // Load voices
+                speechSynthesis.getVoices();
+                
+                // Listen for voice changes
+                speechSynthesis.onvoiceschanged = function() {
+                    const voices = speechSynthesis.getVoices();
+                    const arabicVoices = voices.filter(voice => 
+                        voice.lang.includes('ar') || 
+                        voice.name.toLowerCase().includes('arabic')
+                    );
+                    
+                    if (arabicVoices.length > 0) {
+                        console.log('Arabic voices available:', arabicVoices.map(v => v.name));
+                    } else {
+                        console.log('No Arabic voices found, using fallback');
+                    }
+                };
+            }
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97201f8b72164103',t:'MTc1NTY3NDM3NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
